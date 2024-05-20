@@ -3,7 +3,6 @@ from tkinter import ttk
 from tkinter import messagebox
 
 def displayframe(framename):
-
     def getfieldheadings():
         cur = conn.cursor()
         sql = 'SELECT * FROM players'
@@ -102,3 +101,41 @@ def displayframe(framename):
 
     searchbtn  = tk.Button(framename, text="Search", command=searchdb, bg="Gold")
     searchbtn.place(x=350, y=300, height=20)
+
+def initFrame(framename):
+    titleLbl = tk.Label(framename, text="Football Manager", font="Arial 36", justify=tk.CENTER)
+    titleLbl.place(x=200,y=0, width=400)
+
+    startBtn = tk.Button(framename, text="Start", font="Arial 20")
+    startBtn.place(x=200,y=100, width=400)
+
+    continueBtn = tk.Button(framename, text="Continue", font="Arial 20")
+    continueBtn.place(x=200,y=200, width=400)
+
+def managerSetup(framename):
+    nameLbl = tk.Label(framename, text="Name ", font="Arial 14")
+    nameLbl.place(x=50,y=50)
+
+    nameBtn = tk.Entry(framename, font="Arial 14")
+    nameBtn.place(x=120,y=49, height=30)
+
+    def getTeams():
+        conn = sqlite3.connect("fifa.db")
+        cur = conn.cursor()
+        sql = 'SELECT team_name FROM teams'
+        headings = cur.execute(sql)
+        return headings
+
+    # Drop Down menu for team
+    # heading = getTeams()
+    # print(heading)
+    # listmenu = tk.StringVar() 
+    # listmenu.set(heading[0]) 
+    # drop = tk.OptionMenu(framename, listmenu, *heading) 
+    # drop.place(x=100, y=295, width=100)
+
+    # startBtn = tk.Button(framename, text="Start", font="Arial 20")
+    # startBtn.place(x=200,y=100, width=400)
+
+    # continueBtn = tk.Button(framename, text="Continue", font="Arial 20")
+    # continueBtn.place(x=200,y=200, width=400)

@@ -1,6 +1,5 @@
 import tkinter as tk, random
-from page1 import * 
-
+import page1
 def getcolour():
     rgb = [random.randint(0,255), random.randint(0,255), random.randint(0,255)]
     return f'#{rgb[0]:02x}{rgb[1]:02x}{rgb[2]:02x}'
@@ -16,11 +15,15 @@ root.title("DB window")
 root.geometry("800x600")
 
 # Pages stored in array
-pages = ["Search", "Products", "Checkout", "Help"]
+pages = ["Start", "Search", "Setup"]
 frames = {page:tk.Frame(root, bg=getcolour()) for page in pages}
 
 # Initalise pages
-displayframe(frames["Search"])
+page1.displayframe(frames["Search"])
+page1.managerSetup(frames["Setup"])
+page1.initFrame(frames["Start"])
+
+frames["Start"].place(x=0,y=50, width=800, height=550) # INIT starting frame
 
 # File menu
 filemenu = tk.Menu(root)
