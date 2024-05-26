@@ -221,7 +221,7 @@ def teamPage(framename):
                 else:
                     sqlstr+='OR "Positions Played" LIKE "%{}%" '.format(position)
             cur = conn.cursor()
-            sql = f'SELECT * FROM players WHERE {sqlstr} AND "Club Name" = "{teamname}"'
+            sql = f'SELECT * FROM players WHERE ({sqlstr}) AND "Club Name" = "{teamname}"'
         else:
             sql = f'SELECT * FROM players WHERE "Club Name" = "{teamname}"'
         print(sql)
@@ -234,7 +234,7 @@ def teamPage(framename):
             treeview.insert("", tk.END, text=record[0], values=record[1:])
         treeview.bind("<Double-1>", OnDoubleClick)
 
-    def searchdb():
+    def searchdb(): # Using drop down menu
         item = searchentry.get()
         cur = conn.cursor()
         sql = f'SELECT * FROM players WHERE "{listmenu.get()}" LIKE "%{item}%"'
@@ -248,7 +248,6 @@ def teamPage(framename):
     getbgimage(framename)
 
     conn = sqlite3.connect("fifa.db")
-    
     headings = getfieldheadings()
     heading = [field[0] for field in headings.description]
 
@@ -270,7 +269,7 @@ def teamPage(framename):
 
     treeview = ttk.Treeview(framename, columns=heading[1:])
 
-    for idx, head in enumerate(heading):
+    for idx, head in enumerate(heading): # Headings for treeview
         if idx==0:
             treeview.column("#0", anchor=tk.CENTER, stretch=tk.NO, width=100)
             treeview.heading("#0", text=head)
@@ -286,20 +285,20 @@ def teamPage(framename):
     scrollbarv.config(command = treeview.yview)
     scrollbarh.config(command = treeview.xview)
 
-    searchlbl = tk.Label(framename, text="Search ", font="Tahoma 10")
-    searchlbl.place(x=50, y=300)
+    # searchlbl = tk.Label(framename, text="Search ", font="Tahoma 10")
+    # searchlbl.place(x=50, y=300)
 
     # Drop Down menu
-    listmenu = tk.StringVar() 
-    listmenu.set(heading[0]) 
-    drop = tk.OptionMenu(framename, listmenu, *heading) 
-    drop.place(x=100, y=295, width=100)
+    # listmenu = tk.StringVar() 
+    # listmenu.set(heading[0]) 
+    # drop = tk.OptionMenu(framename, listmenu, *heading) 
+    # drop.place(x=100, y=295, width=100)
 
-    searchentry  = tk.Entry(framename)
-    searchentry.place(x=220, y=300)
+    # searchentry  = tk.Entry(framename)
+    # searchentry.place(x=220, y=300)
 
-    searchbtn  = tk.Button(framename, text="Search", command=searchdb, bg="Gold")
-    searchbtn.place(x=350, y=300, height=20)
+    # searchbtn  = tk.Button(framename, text="Search", command=searchdb, bg="Gold")
+    # searchbtn.place(x=350, y=300, height=20)
 
 # Functions for program
 def getcolour():
